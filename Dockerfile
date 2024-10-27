@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM pytorch/pytorch:2.0.0-cuda11.7-cudnn8-runtime
+FROM pytorch/pytorch:2.1.0-cuda11.8-cudnn8-runtime
 
 # Set the working directory in the container
 WORKDIR /app
@@ -9,6 +9,11 @@ RUN ulimit -n 65536
 
 # Copy the current directory contents into the container at /app
 COPY . /app
+
+RUN pip3 install --no-cache-dir \
+    torch==2.1.0 \
+    torchvision==0.16.0 \
+    --extra-index-url https://download.pytorch.org/whl/cu118
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
